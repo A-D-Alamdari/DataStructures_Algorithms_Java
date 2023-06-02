@@ -38,8 +38,31 @@ public class DoublyLinkedList {
         return this.length;
     }
 
+    /**
+     * Check that the Doubly Linked List is empty or not.
+     * @return: True, if the Doubly Linked List is empty, otherwise, False.
+     */
     public boolean isEmpty() {
         return head == null;
+    }
+
+
+    /**
+     * This method return the length or size of the Doubly Linked List.
+     * @return: Length of the Doubly Linked List.
+     */
+    public int getSize() {
+        if (isEmpty()) {
+            return 0;
+        } else {
+            int count = 0;
+            DoublyNode temp = head;
+            while (temp != null) {
+                count++;
+                temp = (DoublyNode) temp.getNext();
+            }
+            return count;
+        }
     }
 
     /**
@@ -47,13 +70,12 @@ public class DoublyLinkedList {
      * @param newNode: The Doubly Node to be added to the end of the Doubly Linked List.
      */
     public void append(DoublyNode newNode) {
-        if (head == null) {
+        if (head == null) {     // Here we can use isEmpty() instead of (head == null)
             head = newNode;
         } else {
             tail.setNext(newNode);
             newNode.setPrevious(tail);
         }
-
         tail = newNode;
         length++;
     }
@@ -68,8 +90,6 @@ public class DoublyLinkedList {
         if (isEmpty()) {
             head = newNode;
             tail = head;
-            head.setPrevious(null);
-            tail.setNext(null);
         } else {
             tail.setNext(newNode);
             newNode.setPrevious(tail);
@@ -78,16 +98,6 @@ public class DoublyLinkedList {
         length++;
     }
 
-//    public void append(DoublyNode newNode) {
-//        if (isEmpty()) {
-//            head = newNode;
-//        } else {
-//            tail.setNext(newNode);
-//            newNode.setPrevious(tail);
-//        }
-//        tail = newNode;
-//        length++;
-//    }
 
     /**
      * This method remove the last item in a Doubly Linked List.
