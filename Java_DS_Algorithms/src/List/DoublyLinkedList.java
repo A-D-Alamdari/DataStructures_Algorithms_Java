@@ -42,6 +42,10 @@ public class DoublyLinkedList {
         return head == null;
     }
 
+    /**
+     * This method append a new item to the end of a Doubly Linked List.
+     * @param newNode: The Doubly Node to be added to the end of the Doubly Linked List.
+     */
     public void append(DoublyNode newNode) {
         if (head == null) {
             head = newNode;
@@ -54,6 +58,11 @@ public class DoublyLinkedList {
         length++;
     }
 
+    /**
+     * This method create a Doubly Node with given parameter and add it to the end of the
+     * Doubly Linked List
+     * @param data: The value to be added to the Doubly Linked List.
+     */
     public void append(int data) {
         DoublyNode newNode = new DoublyNode(data);
         if (isEmpty()) {
@@ -80,6 +89,9 @@ public class DoublyLinkedList {
 //        length++;
 //    }
 
+    /**
+     * This method remove the last item in a Doubly Linked List.
+     */
     public void removeLast() {
         if (!isEmpty()) {
             tail = tail.getPrevious();
@@ -94,6 +106,10 @@ public class DoublyLinkedList {
         }
     }
 
+    /**
+     * This method insert a new value to beginning of the Doubly Linked List.
+     * @param data: The value to be added to the Doubly Linked List.
+     */
     public void insertFirst(int data) {
         DoublyNode newNode = new DoublyNode(data);
         if (!isEmpty()) {
@@ -108,6 +124,10 @@ public class DoublyLinkedList {
         length++;
     }
 
+    /**
+     * This method insert a new Doubly Node to beginning of the Doubly Linked List.
+     * @param newNode: The Doubly Node to be added to the Doubly Linked List.
+     */
     public void insertFirst(DoublyNode newNode) {
         if (!isEmpty()) {
             DoublyNode temp = head;

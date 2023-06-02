@@ -12,6 +12,17 @@ public class Main {
         System.out.println(myLL.getSize());
         System.out.println(myLL.getLength());
         System.out.println(myLL);
+        myLL.insertAtIndex_2(0, -10);
+        System.out.println(myLL);
+        myLL.insertAtIndex_2(12, -20);
+        System.out.println(myLL);
+        myLL.insertAtIndex_2(6, -20);
+
+        System.out.println(myLL.getSize());
+        System.out.println(myLL);
+
+        myLL.oddIndexedElements();
+        System.out.println(myLL);
 
     }
 }
