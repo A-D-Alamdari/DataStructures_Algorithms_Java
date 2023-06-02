@@ -281,6 +281,28 @@ public class LinkedList {
     }
 
     /**
+     * This method return the length or size of the Linked List.
+     * @return Size/length of the Linked List
+     */
+    public int getSize() {
+        if (isEmpty()) {
+            return 0;
+        } else {
+            if (head == tail) {
+                return 1;
+            } else {
+                int count = 0;
+                Node temp = head;
+                while (temp != null) {
+                    temp = temp.getNext();
+                    count++;
+                }
+                return count;
+            }
+        }
+    }
+
+    /**
      * This method returns the Node at the specified index.
      * @param index : The index of a Node which we want to return.
      * @return Node : The node at the specified index.
@@ -323,7 +345,7 @@ public class LinkedList {
      * @param data : The value which will be inserted as a value of Node.
      * @return : it returns boolean value if it can add return true, else false.
      */
-    public boolean set(int index, int data) {
+    public boolean setDataOfIndex(int index, int data) {
         Node temp = getNodeAtIndex(index);
         if (temp != null) {
             temp.setData(data);
@@ -332,6 +354,8 @@ public class LinkedList {
             return false;
         }
     }
+
+
 
     public void reverse() {
         Node temp = head;

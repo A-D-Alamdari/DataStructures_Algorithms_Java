@@ -9,6 +9,8 @@ public class Main {
 
         System.out.println(myLL);
         myLL.insertAtIndex(4, 100);
+        System.out.println(myLL.getSize());
+        System.out.println(myLL.getLength());
         System.out.println(myLL);
 
     }
