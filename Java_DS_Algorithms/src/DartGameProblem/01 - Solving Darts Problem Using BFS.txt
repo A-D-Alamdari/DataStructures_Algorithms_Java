@@ -1,0 +1,47 @@
+In the game of Darts, the aim is to get a sum of 100 points by shooting darts. One can shoot as many darts as possible,
+ but if the sum of shots is larger than 100, one fails. An example dart board is shown in Figure 4.7. In this example,
+  if we shoot 2 times 11, 2 times 21, and 1 time 36, we get the sum 2× 11 + 2 × 21 + 1 × 36 = 100. On the other hand,
+   if we shoot 2 times 36 and 1 time 33 (2 × 36 + 33 = 105) we can not get the sum needed.
+
+A lot of problems, like the Dart game problem, can be expressed as a search problem in a state space. In the state
+space, each state we traverse while solving the problem, is represented as a state. For example, in the Dart game
+problem, at the beginning, no shots are done, and we are in the state of 0; in another case, if 33, 21, and 11 are
+shot, we are in the state (33 + 21 + 11 =) 65.
+In the state space, we can move from one state to another by some predefined actions. Here an action is defined
+according to the problem and expressed as a movement from a state to another. For example, in the Dart game problem,
+we move from one state to another by shooting darts. When we are in the beginning state 0, if we shoot 33, we will
+move to the state 33. When we are in the state 54 and we shoot 36, we will move to the state (54 + 36 =) 90. In the
+Dart game problem, (The numbers between 0 and 100) there are 101 different states. But some states may not be
+reachable. For example, in the Dart board given, whatever we do, we can not reach the states like 10, 15, 30, because
+how we will shoot, the sum of our shots can not be 10, 15 or 30. Therefore, our aim in the Dart game problem, is to
+determine how we will move from the start state (0) to the end state (100). These types of search problems can be
+solved using the search techniques in the computer science literature. Two types of search techniques are mostly used:
+breadth first search and depth first search.
+
+In breadth first search, we first explore the states that can be accessed directly from the beginning state, then the
+states that can be accessed with one intermediate state, then the states that can be accessed with two intermediate
+states, etc. and if one of these states is an end state, we will finish the search. For example, in the Dart game given
+above, with one shot we can move from the beginning state (0) to the states 11, 21, 27, 33, and 36. On the other hand,
+with two shots, we can move to the states 22 (11 + 11), 32 (11 + 21), 38 (11 + 27), 42 (21 + 21), 44 (11 + 33),
+47 (11 + 36), 48 (21 + 27), 54 (27+ 27 or 21 + 33), 57 (21 + 36), 60 (27 + 33), 63 (27 + 36), 66 (33 + 33),
+69 (33 + 36), and 72 (36 + 36). As can be seen, the number of states that can be accessed is increasing exponentially
+with the number of shots (Figure 4.8).
+These states may not be different from each other, in other words, we can encounter same states again and again in
+breadth first search. For example, in the Dart game above, we can reach state 54 both by shooting 27 twice or by
+shooting first 21, then 33.
+
+An easy way of the application of the breadth first search is using a queue data structure. Each element in the queue
+corresponds to a single state. In the beginning, there is only the beginning state in the queue. At each stage, we
+remove a state from the queue and the states that are reachable from this state are added to the end of the queue.
+Since the states that are reachable from the beginning state are in the first level, the states in the first level
+are added to the queue. Then the states that are reachable from the states in the first level, namely states in the
+second level, are added to the queue. This addition continues until we arrive at the end state. Note that only the
+states at a level, and the states that are reachable from that level appear in the queue.
+
+
+Since we are not only asked if the problem is solvable or not, but also the solution of the problem, that is, which
+shots have been done to arrive the final state, we need to modify the definition of each element in the queue data
+structure. Figure 4.7 shows the definition of the new element that also includes this information. Field total
+represents the sum of shots that are done to reach this state, darts field represents the shots done to reach this
+state. For example, if we have shot 21 and 36 from the beginning state to arrive this state, total will be 57, and
+darts will be ”21 36”.
