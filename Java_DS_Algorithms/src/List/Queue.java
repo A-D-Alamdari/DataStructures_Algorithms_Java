@@ -5,12 +5,21 @@ public class Queue {
     private Node last;
     private int length;
 
+
+    /**
+     * Constructor to create an empty Queue.
+     */
     public Queue() {
         this.first = null;
         this.last = null;
         this.length = 0;
     }
 
+
+    /**
+     * Constructor to create a Queue with initial node with specified data value.
+     * @param data : The value of the node.
+     */
     public Queue(int data) {
         Node newNode = new Node(data);
         this.first = newNode;
@@ -18,6 +27,8 @@ public class Queue {
         this.length = 1;
     }
 
+
+    // Getter Methods
     public Node getFirst() {
         return this.first;
     }
@@ -28,6 +39,7 @@ public class Queue {
         return this.length;
     }
 
+    // Setter Methods
     public void setFirst(Node node) {
         this.first = node;
     }
@@ -35,13 +47,23 @@ public class Queue {
         this.last = node;
     }
 
+
+    /**
+     * Check that the Queue is empty or not.
+     * @return true if it is empty, false otherwise.
+     */
     public boolean isEmpty() {
         return this.first == null;
     }
 
+
+    /**
+     * Enqueue or add a new item in a Queue.
+     * @param data : The data value of the item to be added to the Queue.
+     */
     public void enqueue(int data) {
         Node newNode = new Node(data);
-        if (isEmpty()) {
+        if (isEmpty()) {            // You can use length == 0 or size() == 0 as a condition for if statement
             this.first = newNode;
         } else {
             last.setNext(newNode);
@@ -50,8 +72,13 @@ public class Queue {
         this.length++;
     }
 
+
+    /**
+     * Enqueue or add a new item in a Queue.
+     * @param node : The node to be added to the Queue
+     */
     public void enqueue(Node node) {
-        if (isEmpty()) {
+        if (isEmpty()) {            // You can use length == 0 or size() == 0 as a condition for if statement
             this.first = node;
         } else {
             last.setNext(node);
@@ -60,12 +87,17 @@ public class Queue {
         this.length++;
     }
 
+
+    /**
+     * Dequeue or remove and return the item from the Queue.
+     * @return : The node which is removed and returned.
+     */
     public Node dequeue() {
-        if (isEmpty()) {
+        if (isEmpty()) {                    // You can use length == 0 or size() == 0 as a condition for if statement
             return null;
         }
         Node temp = this.first;
-        if (this.first == this.last) {
+        if (this.first == this.last) {      // You can use length == 1 or size() == 1 as a condition for if statement
             this.first = null;
             this.last = null;
         } else {
@@ -76,6 +108,7 @@ public class Queue {
         return temp;
     }
 
+
     /**
      * Write a function that moves the element currently at the front of the
      * queue to the rear of the queue. Write the function for both array and
@@ -85,6 +118,7 @@ public class Queue {
         Node temp = dequeue();
         enqueue(temp);
     }
+
 
     /**
      * Write a function that returns the maximum element in a queue. You are
@@ -113,6 +147,7 @@ public class Queue {
         return max;
     }
 
+
     /**
      * For linked list implementation, write a function that moves the element
      * currently at the rear of the queue to the front of the queue.
@@ -130,6 +165,7 @@ public class Queue {
         }
     }
 
+
     /**
      * Write a function that adds a new element after the front element of the
      * queue. Write the function for both array and linked list implementations.
@@ -141,11 +177,16 @@ public class Queue {
         newNode.setNext(temp);
     }
 
+    /**
+     * Write a function that adds a new element after the front element of the
+     * queue. Write the function for both array and linked list implementations.
+     */
     public void insertSecond(Node node) {
         Node temp = first.getNext();
         first.setNext(node);
         node.setNext(temp);
     }
+
 
     /**
      * Write a function that adds a new element after the K’th (K ! 0)
@@ -166,6 +207,12 @@ public class Queue {
         newNode.setNext(tempNext);
     }
 
+    /**
+     * Write a function that adds a new element after the K’th (K ! 0)
+     * element of the queue. Write the function for both array and linked
+     * list implementations. You can safely assume that, there are at least K
+     * elements in the queue.
+     */
     public void insertAfterKth(int k, Node node) {
         Node temp = first;
         int count = 0;
@@ -177,6 +224,7 @@ public class Queue {
         temp.setNext(node);
         node.setNext(tempNext);
     }
+
 
     /**
      * Write a function that deletes the element in the K’th (K ! 0) position
@@ -199,6 +247,7 @@ public class Queue {
             }
         }
     }
+
 
     /**
      * This function returns the size of the Queue.
