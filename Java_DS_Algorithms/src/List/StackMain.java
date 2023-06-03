@@ -8,6 +8,7 @@ public class StackMain {
         myS.push(20);
         myS.push(30);
 
+
         System.out.println(myS.getSize());
     }
 }
