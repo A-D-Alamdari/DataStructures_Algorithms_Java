@@ -29,18 +29,22 @@ public class Main {
         System.out.println(myLL);
         myLL.deleteAll(100);
         System.out.println(myLL);
+        System.out.println();
 
         LinkedList ll = new LinkedList(10);
         ll.append(20);
-        ll.append(30);
-        ll.append(40);
-
-        System.out.println(myLL.subList(ll));
-
-
-
+        ll.append(0);
+        ll.append(11);
+        ll.append(-14);
+        ll.append(-6);
+        ll.append(100);
+        ll.append(66);
 
         System.out.println(ll);
+        System.out.println();
+        ll.descendingSort();
+        System.out.println(ll);
+
 
 
     }

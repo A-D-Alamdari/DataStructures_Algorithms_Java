@@ -812,6 +812,258 @@ public class LinkedList {
     }
 
 
+    /**
+     * Write a function that returns the Fibonacci numbers between A and B
+     * as a linked list. Fibonacci's numbers are:
+     *      F_0 = 0
+     *      F_1 = 1
+     *      F_2 = 1
+     *      . . .
+     *      F_n = F_n−1 + F_n−2
+     * @param A : Starting number
+     * @param B : Ending number
+     * @return : The linked list which contains Fibonacci numbers between A and B.
+     */
+    public LinkedList fibonacci(int A, int B) {
+        LinkedList result = new LinkedList();
+        int prev = 0;
+        int curr = 1;
+
+        while (curr <= B) {
+            if (curr >= A) {
+                result.append(curr);
+            }
+            int next = prev + curr;
+            prev = curr;
+            curr = next;
+        }
+
+        return result;
+    }
+
+
+    /**
+     * Suppose you are given a linked list of N integers that are sorted. Write
+     * an algorithm to remove duplicate elements from that sorted linked list.
+     * @param A : The sorted Linked List.
+     */
+    public void removeDuplicates(LinkedList A) {
+        Node curr = A.head;
+
+        while (curr != null && curr.getNext() != null) {
+            if (curr.getData() == curr.getNext().getData()) {
+                curr.setNext(curr.getNext().getNext());
+            } else {
+                curr = curr.getNext();
+            }
+        }
+    }
+
+
+    /**
+     * Suppose you are given a linked list of N integers that are sorted. Write
+     * an algorithm to remove single elements from that sorted linked list.
+     * @param A : Sorted Linked List
+     */
+    public static void removeSingles(LinkedList A) {
+        Node curr = A.head;
+        Node prev = null;
+
+        while (curr != null && curr.getNext() != null) {
+            if (curr.getData() != curr.getNext().getData()) {
+                if (prev == null) {
+                    A.head = curr.getNext();
+                } else {
+                    prev.setNext(curr.getNext());
+                }
+            }
+            curr = curr.getNext();
+        }
+    }
+
+
+    // *****************************************************************************************************
+
+    /**
+     * A function that sort the Linked List in ascending order.
+     * In-place sorting.
+     * It uses Merge Sort
+     */
+    public void ascendingSort() {
+        if (head == null || head.getNext() == null) {
+            // The list is already sorted or empty
+            return;
+        }
+
+        head = mergeSort(head);
+    }
+
+    /**
+     * Merge Sort
+     * @param head
+     * @return
+     */
+    private Node mergeSort(Node head) {
+        if (head == null || head.getNext() == null) {
+            return head;
+        }
+
+        // Split the list into two halves
+        Node middle = getMiddleNode(head);
+        Node nextOfMiddle = middle.getNext();
+        middle.setNext(null);
+
+        // Recursively sort the two halves
+        Node left = mergeSort(head);
+        Node right = mergeSort(nextOfMiddle);
+
+        // Merge the sorted halves
+        Node sortedList = merge(left, right);
+
+        return sortedList;
+    }
+
+    /**
+     * Helper method for Merge Sort
+     * @param left
+     * @param right
+     * @return
+     */
+    private Node merge(Node left, Node right) {
+        Node result = null;
+
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+
+        if (left.getData() <= right.getData()) {
+            result = left;
+            result.setNext(merge(left.getNext(), right));
+        } else {
+            result = right;
+            result.setNext(merge(left, right.getNext()));
+        }
+
+        return result;
+    }
+
+    /**
+     * Helper method for Merge Sort
+     * @param head
+     * @return
+     */
+    private Node getMiddleNode(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+
+        return slow;
+    }
+
+    // *****************************************************************************************************
+    // *****************************************************************************************************
+
+    /**
+     * A function that sort the Linked List in descending order.
+     * In-place sorting.
+     * It uses Merge Sort
+     */
+    public void descendingSort() {
+        // Check if the list is empty or contains only one node
+        if (head == null || head.getNext() == null) {
+            return;
+        }
+
+        // Perform merge sort to sort the list
+        head = mergeSortDescending(head);
+    }
+
+    /**
+     * Helper method for Descending Sort.
+     * @param node
+     * @return
+     */
+    private Node mergeSortDescending(Node node) {
+        // Base case: If the list is empty or contains only one node, return the head
+        if (node == null || node.getNext() == null) {
+            return node;
+        }
+
+        // Split the list into two halves
+        Node middle = getMiddleNode(node);
+        Node nextOfMiddle = middle.getNext();
+        middle.setNext(null);
+
+        // Recursively sort the two halves
+        Node left = mergeSortDescending(node);
+        Node right = mergeSortDescending(nextOfMiddle);
+
+        // Merge the sorted halves in descending order
+        return mergeDescending(left, right);
+    }
+
+    private Node mergeDescending(Node left, Node right) {
+        // Create a dummy node as the head of the merged list
+        Node dummy = new Node();
+        Node tail = dummy;
+
+        // Merge the two lists in descending order
+        while (left != null && right != null) {
+            if (left.getData() >= right.getData()) {
+                tail.setNext(left);
+                left = left.getNext();
+            } else {
+                tail.setNext(right);
+                right = right.getNext();
+            }
+            tail = tail.getNext();
+        }
+
+        // Append the remaining nodes from either list
+        if (left != null) {
+            tail.setNext(left);
+        } else {
+            tail.setNext(right);
+        }
+
+        // Return the head of the merged list
+        return dummy.getNext();
+    }
+
+// *****************************************************************************************************
+
+
+
+    /**
+     * Write the method which prints the contents of the odd indexed nodes
+     * (1, 3, . . .) in the linked list.
+     */
+    public void printOddNodes() {
+        Node current = head;
+        int index = 0;
+
+        while (current != null) {
+            if (index % 2 != 0) {
+                System.out.print(index + ":" + current.getData() + " - ");
+            }
+            current = current.getNext();
+            index++;
+        }
+        System.out.println();
+    }
+
+
 
     /**
      * This method doubles each node in the Linked List.
