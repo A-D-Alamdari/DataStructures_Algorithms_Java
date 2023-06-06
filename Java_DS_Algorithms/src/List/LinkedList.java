@@ -493,28 +493,341 @@ public class LinkedList {
      * @return : The deleted nodes as a new linked list
      */
     public LinkedList oddIndexedElements() {
-        LinkedList deleted = new LinkedList();
-        if (isEmpty()) {
-            return deleted;
+        LinkedList deletedList = new LinkedList();
+        if (head == null) {
+            return deletedList;
         }
-        if (head == tail || getSize() == 2) {
-            tail.setNext(null);
-            deleted.append(tail);
-            this.head = tail;
-        } else {
-            for (int i = 1; i < getSize(); i = i + 2) {
-                Node temp = getNodeAtIndex(i);
-                if (i == 1) {
-                    deleted.insertFirst(temp);
-                    removeFromIndex(1);
+        Node current = head;
+        int index = 1;
+        while (current != null && current.getNext() != null) {
+            if (index % 2 != 0) {
+                Node deletedNode = current.getNext();
+                current.setNext(deletedNode.getNext());
+                deletedNode.setNext(null);
+                deletedList.append(deletedNode.getData());
+            } else {
+                current = current.getNext();
+            }
+            index++;
+        }
+        return deletedList;
+    }
+
+
+    /**
+     * This function will delete even indexed elements from a singly linked list.
+     */
+    public void deleteEvenIndexed() {
+        if (head == null || head.getNext() == null) {
+            // Empty list or list with only one node, nothing to delete
+            return;
+        }
+
+        Node current = head;
+        Node prev = null;
+        int index = 0;
+
+        while (current != null) {
+            if (index % 2 == 0) {
+                // Even index, delete the node
+                if (prev == null) {
+                    // If it's the first node, update the head
+                    head = current.getNext();
                 } else {
-                    deleted.append(temp);
-                    this.removeFromIndex(i);
+                    // Update the previous node's next reference
+                    prev.setNext(current.getNext());
                 }
+                current.setNext(null); // Remove the reference from the deleted node
+                current = prev != null ? prev.getNext() : head; // Move to the next node
+            } else {
+                // Odd index, move to the next node
+                prev = current;
+                current = current.getNext();
+            }
+            index++;
+        }
+    }
+
+
+    /**
+     * The function that will add a new node before the last node of a
+     * singly linked list.
+     * @param newNode : The node that will be added to the Linked List.
+     */
+    public void insertBeforeLast(Node newNode) {
+        if (head == null) {
+            // Empty list, newNode becomes the head
+            head = newNode;
+            return;
+        }
+
+        Node current = head;
+        Node prev = null;
+
+        while (current.getNext() != null) {
+            prev = current;
+            current = current.getNext();
+        }
+
+        // Insert newNode before the last node
+        newNode.setNext(current);
+        if (prev == null) {
+            // If there's only one node, newNode becomes the new head
+            head = newNode;
+        } else {
+            prev.setNext(newNode);
+        }
+    }
+
+
+    /**
+     * Given a sorted linked list, write a function to add a new integer without
+     * destroying the sortedness property
+     * @param x: The new data value to be added to a Linked List.
+     */
+    public void AddToSortedList(int x) {
+        Node newNode = new Node(x);
+
+        if (head == null || x < head.getData()) {
+            // Empty list or x is smaller than the current head, newNode becomes the new head
+            newNode.setNext(head);
+            head = newNode;
+            return;
+        }
+
+        Node current = head;
+        Node prev = null;
+
+        while (current != null && x >= current.getData()) {
+            prev = current;
+            current = current.getNext();
+        }
+
+        // Insert newNode at the appropriate position
+        assert prev != null;
+        prev.setNext(newNode);
+        newNode.setNext(current);
+    }
+
+
+    /**
+     * Given node X, write a function to move that node n position forward.
+     * Assume that there are at least n nodes after node X.
+     * @param X
+     * @param n
+     */
+    public void move(Node X, int n) {
+        if (X == null || n <= 0)
+            return;
+
+        // Find the node before X
+        Node prevX = null;
+        Node current = head;
+        while (current != null && current != X) {
+            prevX = current;
+            current = current.getNext();
+        }
+
+        if (current == null)
+            return; // Node X not found
+
+        // Find the node at the new position
+        Node newX = X;
+        for (int i = 0; i < n; i++) {
+            newX = newX.getNext();
+        }
+
+        // Update the pointers to move X to the new position
+        if (prevX == null) {
+            // X is the head node
+            head = X.getNext();
+        } else {
+            prevX.setNext(X.getNext());
+        }
+        X.setNext(newX.getNext());
+        newX.setNext(X);
+    }
+
+
+    /**
+     * Given an integer N, write a function which returns the prime factors
+     * of N as singly linked list.
+     * @param N: Given integer
+     * @return: A linked list which contains the prime factors of N
+     */
+    public LinkedList primeFactors(int N) {
+        LinkedList factors = new LinkedList();
+
+        // Check if 2 is a factor of N
+        while (N % 2 == 0) {
+            factors.append(2);
+            N /= 2;
+        }
+
+        // Check for other prime factors starting from 3
+        for (int i = 3; i <= Math.sqrt(N); i += 2) {
+            while (N % i == 0) {
+                factors.append(i);
+                N /= i;
             }
         }
-        return deleted;
+
+        // If N is a prime number greater than 2
+        if (N > 2) {
+            factors.append(N);
+        }
+
+        return factors;
     }
+
+
+    /**
+     * Write a function that determines if a singly link list is palindrome, that
+     * is, it is equal its reverse.
+     * @return: true if it is palindrome, false otherwise.
+     */
+    public boolean isPalindrome() {
+        // Base case: an empty list or a single node is considered a palindrome
+        if (head == null || head.getNext() == null) {
+            return true;
+        }
+
+        // Find the middle node using the two-pointer technique
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.getNext() != null) {
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+
+        // Reverse the second half of the linked list
+        Node secondHalf = reverse(slow);
+
+        // Compare the first half with the reversed second half
+        Node curr1 = head;
+        Node curr2 = secondHalf;
+        while (curr1 != null && curr2 != null) {
+            if (curr1.getData() != curr2.getData()) {
+                return false;
+            }
+            curr1 = curr1.getNext();
+            curr2 = curr2.getNext();
+        }
+
+        // Restore the original linked list (re-reverse the second half)
+        reverse(secondHalf);
+
+        return true;
+    }
+
+    /**
+     * Reverse a linked list from specified Node.
+     * @param node: The node which we reverse the items after that
+     * @return
+     */
+    private Node reverse(Node node) {
+        Node prev = null;
+        Node curr = node;
+        while (curr != null) {
+            Node next = curr.getNext();
+            curr.setNext(prev);
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+
+    /**
+     * Given two sorted linked lists L1 and L2, write a function to compute
+     * L1 (intersection) L2.
+     * @param l1 : Sorted Linked List
+     * @param l2 : Sorted Linked List
+     * @return: Intersection of L1 and L2
+     */
+    public LinkedList intersection(LinkedList l1, LinkedList l2) {
+        LinkedList result = new LinkedList();
+        Node curr1 = l1.head;
+        Node curr2 = l2.head;
+
+        while (curr1 != null && curr2 != null) {
+            if (curr1.getData() == curr2.getData()) {
+                result.append(curr1.getData());
+                curr1 = curr1.getNext();
+                curr2 = curr2.getNext();
+            } else if (curr1.getData() < curr2.getData()) {
+                curr1 = curr1.getNext();
+            } else {
+                curr2 = curr2.getNext();
+            }
+        }
+
+        return result;
+    }
+
+
+    /**
+     * Write a function that deletes all nodes having value X from a singly
+     * linked list.
+     * @param X: The value of the node to be deleted.
+     */
+    public void deleteAll(int X) {
+        Node curr = head;
+        Node prev = null;
+
+        while (curr != null) {
+            if (curr.getData() == X) {
+                if (prev == null) {
+                    // Deleting the head node
+                    head = curr.getNext();
+                } else {
+                    prev.setNext(curr.getNext());
+                }
+            } else {
+                prev = curr;
+            }
+            curr = curr.getNext();
+        }
+    }
+
+
+    /**
+     * Write a function that checks if the original list contains the elements
+     * of the second list in the same order.
+     * @param sub: The second Linked List
+     * @return: true if it contains the elements of the second list in the same order, false otherwise.
+     */
+    public boolean subList(LinkedList sub) {
+        Node curr1 = head;
+        Node curr2 = sub.head;
+
+        while (curr1 != null && curr2 != null) {
+            if (curr1.getData() == curr2.getData()) {
+                curr2 = curr2.getNext();
+            }
+            curr1 = curr1.getNext();
+        }
+
+        return curr2 == null; // Return true if we reached the end of sub list
+    }
+
+
+
+    /**
+     * This method doubles each node in the Linked List.
+     */
+    public void doubleList() {
+        Node current = head;
+        while (current != null) {
+            Node newNode = new Node(current.getData());
+            newNode.setNext(current.getNext());
+            current.setNext(newNode);
+            current = newNode.getNext();
+            length++;
+        }
+    }
+
+
 
     public String toString() {
         Node temp = head;

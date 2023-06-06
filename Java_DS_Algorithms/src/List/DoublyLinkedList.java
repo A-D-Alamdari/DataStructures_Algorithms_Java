@@ -378,6 +378,28 @@ public class DoublyLinkedList {
     }
 
 
+    public void doubleList() {
+        DoublyNode current = head;
+        while (current != null) {
+            DoublyNode newNode = new DoublyNode(current.getData());
+            newNode.setNext(current.getNext());
+            newNode.setPrevious(current);
+
+            current.setNext(newNode);
+
+
+            if (newNode.getNext() != null) {
+                DoublyNode node = (DoublyNode) newNode.getNext();
+                node.setPrevious(newNode);
+            } else {
+                tail = newNode;
+            }
+
+            current = (DoublyNode) newNode.getNext();
+        }
+        length *= 2;
+    }
+
     public String toString() {
         Node temp = head;
         StringBuilder str = new StringBuilder();

@@ -16,13 +16,52 @@ public class Main {
         System.out.println(myLL);
         myLL.insertAtIndex_2(12, -20);
         System.out.println(myLL);
-        myLL.insertAtIndex_2(6, -20);
+        myLL.insertAtIndex_2(6, 420);
 
         System.out.println(myLL.getSize());
         System.out.println(myLL);
+        myLL.insertBeforeLast(new Node(333));
 
-        myLL.oddIndexedElements();
+
+        System.out.println(myLL);
+        myLL.AddToSortedList(421);
+        myLL.move(new Node(-11), 4);
+        System.out.println(myLL);
+        myLL.deleteAll(100);
         System.out.println(myLL);
 
+        LinkedList ll = new LinkedList(10);
+        ll.append(20);
+        ll.append(30);
+        ll.append(40);
+
+        System.out.println(myLL.subList(ll));
+
+
+
+
+        System.out.println(ll);
+
+
+    }
+
+    public static LinkedList intersection(LinkedList l1, LinkedList l2) {
+        LinkedList result = new LinkedList();
+        Node curr1 = l1.getHead();
+        Node curr2 = l2.getHead();
+
+        while (curr1 != null && curr2 != null) {
+            if (curr1.getData() == curr2.getData()) {
+                result.append(curr1.getData());
+                curr1 = curr1.getNext();
+                curr2 = curr2.getNext();
+            } else if (curr1.getData() < curr2.getData()) {
+                curr1 = curr1.getNext();
+            } else {
+                curr2 = curr2.getNext();
+            }
+        }
+
+        return result;
     }
 }
