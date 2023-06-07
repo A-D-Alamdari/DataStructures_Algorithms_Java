@@ -1,0 +1,158 @@
+-----------------------------------------------------------------------------------------------------------------------
+|                                      Introduction to Tree Data Structure                                            |
+-----------------------------------------------------------------------------------------------------------------------
+> Tree is a data structure in which we store data in a hierarchical format.
+> Tree is not a linear data structure.
+> In the tree, we do not store data in sequence.
+> Tree contains data stored in multiple levels.
+> Tree can also be defined as a collection of nodes, where the node contains data and links to child nodes.
+
+
+** Important Terminologies Associated with the Tree are as below:
+    # Root
+    # Parent
+    # Edge
+    # Child
+    # Leaf Node
+    # Siblings
+
+                            A           A is Root
+                          /   \         \ or / are Edges
+                        B       E       B and E are Parents
+                       / \     / \
+          Children    C   D   F   G     C, D, F, and G are Lead Nodes (They don't have any children)
+                                        C and D or F and G are Siblings
+
+    Left Sub-Tree      B       Left Sub-Tree    E
+                      / \                      / \
+                     C   D                    F   G
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+|                                       Introduction to Binary Search Tree                                            |
+-----------------------------------------------------------------------------------------------------------------------
+> Binary search tree is a special type of tree in which every node in the tree can have a maximum of 2 child nodes.
+> In this type of tree data on the left side of every node must be small and data on the right-hand side of every node
+  must be bigger than data in the root node.
+> We use a binary search tree when our main operation is frequent searching.
+> This is also called an ordered binary tree.
+
+                             15
+                           /    \
+                          /      \
+                        12        20
+                      /   \      /   \
+                    10     14  18     25
+
+
+-----------------------------------------------------------------------------------------------------------------------
+|                                            Tree vs. Binary Search Tree                                              |
+-----------------------------------------------------------------------------------------------------------------------
+** Normal Tree:
+    > In a tree, a node can have either 0 or maximum n number of nodes.
+    > It does not follow ant strict ordering while arranging the elements.
+    > Unlike a Binary Search Tree, there is no restriction on the number of nodes a parent can have.
+
+** Binary Search Tree:
+    > Binary Search Tree a node can either have 0 or at most 2 nodes.
+    > It follows some sort of order while arranging the elements.
+    > The values in the left subtree are always less than the parent node and values in the right subtree are greater
+      than of the parent node.
+
+
+-----------------------------------------------------------------------------------------------------------------------
+|                                             What is the use of Trees?                                               |
+-----------------------------------------------------------------------------------------------------------------------
+> On an average, a tree is more efficient if you need to perform many different types of operations.
+> The time needed to perform an operation on a tree is O(logN)
+> Ordered arrays are bad at Insertions and Deletions.
+> Also searching for items in Linked Lists is slow.
+
+-----------------------------------------------------------------------------------------------------------------------
+|                                         Operations on Binary Search Tree                                            |
+-----------------------------------------------------------------------------------------------------------------------
+    # Insert
+    # Delete
+    # Search
+    # Traversals such as Preorder, Inorder, and Postorder.
+
+** Preorder Traversal
+    > Is is a technique of tree traversing in which we visit the root node first.
+    > Following steps are involved in Preorder traversal:
+        1. Visit the root
+        2. Visit all nodes on the left side
+        3. Visit all the nodes on the right side
+
+                             15
+                           /    \
+                          /      \
+                        12        20
+                      /   \      /   \
+                    10     14  18     25
+
+        Preorder Traverse: 15, 12, 10, 14, 20, 18, 25
+
+                            (+)
+                           /    \
+                          /      \
+                       (-)        (/)
+                      /   \      /   \
+                     A     B    C     D
+
+        Preorder Traverse: +-AB/CD
+
+*******************
+** Inorder Traversal
+    > It is a technique of tree traversing in which we visit the root node after visiting the left side of the tree
+      and before the traversing of the right side of the tree.
+    > Following steps are involved in Inorder traversal:
+        1. Visit all the nodes on the left side
+        2. Visit the root
+        3. Visit all the nodes on the right side
+
+                             15
+                           /    \
+                          /      \
+                        12        20
+                      /   \      /   \
+                    10     14  18     25
+
+        Inorder Traverse: 10, 12, 14, 15, 18, 20, 25
+
+                            (-)
+                           /    \
+                          /      \
+                       (+)        (*)
+                      /   \      /   \
+                     A     B    C     D
+
+        Inorder Traverse: A+B-C*D
+
+**********************
+** Postorder Traversal
+    > It is a technique of tree traversing in which we visit the root node at last after visiting all the nodes on the
+      left side and all the nodes on the right side.
+    > Following steps are involved in Postorder traversal:
+        1. Visit all the nodes on the left side
+        2. Visit all the nodes on the right side
+        3. Visit the root
+
+                             15
+                           /    \
+                          /      \
+                        12        20
+                      /   \      /   \
+                    10     14  18     25
+
+        Postorder Traverse: 10, 14, 12, 18, 20, 25, 15
+
+                            (*)
+                           /    \
+                          /      \
+                       (/)        (+)
+                      /   \      /   \
+                     A     B    C     D
+
+        Postorder Traverse: AB/CD+*
+

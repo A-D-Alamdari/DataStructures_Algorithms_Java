@@ -177,6 +177,7 @@ public class Queue {
         newNode.setNext(temp);
     }
 
+
     /**
      * Write a function that adds a new element after the front element of the
      * queue. Write the function for both array and linked list implementations.
@@ -206,6 +207,7 @@ public class Queue {
         temp.setNext(newNode);
         newNode.setNext(tempNext);
     }
+
 
     /**
      * Write a function that adds a new element after the K’th (K ! 0)
