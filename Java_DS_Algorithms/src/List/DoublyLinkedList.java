@@ -400,6 +400,141 @@ public class DoublyLinkedList {
         length *= 2;
     }
 
+
+    /**
+     * This method uses Bubble Sort algorithm to make a Doubly Linked List sorted.
+     */
+    public void bubbleSortDLL() {
+        if (isEmpty() || getSize() == 1) {
+            return; // Empty or single-element list, no need to sort
+        }
+
+        boolean swapped;
+        do {
+            swapped = false;
+            DoublyNode current = head;
+            while (current != null && current.getNext() != null) {
+                if (current.getData() > current.getNext().getData()) {
+                    // Swap the nodes
+                    DoublyNode nextNode = (DoublyNode) current.getNext();
+                    DoublyNode prevNode = current.getPrevious();
+                    DoublyNode afterNextNode = (DoublyNode) nextNode.getNext();
+
+                    if (prevNode != null) {
+                        prevNode.setNext(nextNode);
+                    } else {
+                        head = nextNode;
+                    }
+
+                    nextNode.setPrevious(prevNode);
+                    nextNode.setNext(current);
+                    current.setPrevious(nextNode);
+                    current.setNext(afterNextNode);
+
+                    if (afterNextNode != null) {
+                        afterNextNode.setPrevious(current);
+                    } else {
+                        tail = current;
+                    }
+
+                    swapped = true;
+                } else {
+                    current = (DoublyNode) current.getNext();
+                }
+            }
+        } while (swapped);
+    }
+
+
+    /**
+     * This method uses Merge Sort algorithm to make a Doubly Linked List sorted.
+     */
+    public void mergeSortDLL() {
+        head = mergeSort(head);
+    }
+
+    private DoublyNode mergeSort(DoublyNode head) {
+        if (head == null || head.getNext() == null) {
+            return head; // Base case: Empty list or single node
+        }
+
+        DoublyNode middle = getMiddleNode(head);
+        DoublyNode nextOfMiddle = (DoublyNode) middle.getNext();
+
+        middle.setNext(null);
+        nextOfMiddle.setPrevious(null);
+
+        DoublyNode left = mergeSort(head);
+        DoublyNode right = mergeSort(nextOfMiddle);
+
+        return merge(left, right);
+    }
+
+    /**
+     * Helper Method
+     * @param left
+     * @param right
+     * @return
+     */
+    private DoublyNode merge(DoublyNode left, DoublyNode right) {
+        DoublyNode sorted = null;
+
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+
+        if (left.getData() <= right.getData()) {
+            sorted = left;
+            sorted.setNext(merge((DoublyNode) left.getNext(), right));
+            if (sorted.getNext() != null) {
+                DoublyNode sortedNext = (DoublyNode) sorted.getNext();
+                sortedNext.setPrevious(sorted);
+            }
+            sorted.setPrevious(null);
+        } else {
+            sorted = right;
+            sorted.setNext(merge(left, (DoublyNode) right.getNext()));
+            if (sorted.getNext() != null) {
+                DoublyNode sortedNext = (DoublyNode) sorted.getNext();
+                sortedNext.setPrevious(sorted);
+            }
+            sorted.setPrevious(null);
+        }
+
+        DoublyNode temp = sorted;
+        while (temp.getNext() != null) {
+            temp = (DoublyNode) temp.getNext();
+        }
+        tail = temp;
+
+        return sorted;
+    }
+
+    /**
+     * Helper Method
+     * @param head
+     * @return
+     */
+    private DoublyNode getMiddleNode(DoublyNode head) {
+        if (head == null) {
+            return head;
+        }
+
+        DoublyNode slow = head;
+        DoublyNode fast = head;
+
+        while (fast.getNext() != null && fast.getNext().getNext() != null) {
+            slow = (DoublyNode) slow.getNext();
+            fast = (DoublyNode) fast.getNext().getNext();
+        }
+
+        return slow;
+    }
+
+
     public String toString() {
         Node temp = head;
         StringBuilder str = new StringBuilder();
