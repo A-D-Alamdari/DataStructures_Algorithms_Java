@@ -62,7 +62,7 @@
 
 
 -----------------------------------------------------------------------------------------------------------------------
-|                                             What is the use of Trees?                                               |
+|                                             What is the use of DataStructures_Udemy.Trees?                                               |
 -----------------------------------------------------------------------------------------------------------------------
 > On an average, a tree is more efficient if you need to perform many different types of operations.
 > The time needed to perform an operation on a tree is O(logN)
